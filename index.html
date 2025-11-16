@@ -21,7 +21,7 @@
         hi. i'm avni. i'm a physics undergraduate and electrical engineering masters student at stanford.
         <br>welcome to my website. it's still a work in progress! <br>
         non-exhaustive <a href="https://avnislife.substack.com/" target="_blank"> list</a> of what i care about + what i'm doing about it.<br>
-       i consume a lot of content. here's what's been bouncing around in my head recently.
+       i consume a lot of content.  <a href="https://avnislife.substack.com/" target="_blank">here's</a> what's been bouncing around in my head recently.
       </p>
     </main>
     <!-- LINKs -->
@@ -56,6 +56,20 @@
     });
   </script>
   
+  <script>
+    document.addEventListener("mousemove", (e) => {
+      const spark = document.createElement("div");
+      spark.classList.add("cursor-spark");
   
+      spark.style.left = `${e.pageX}px`;
+      spark.style.top = `${e.pageY}px`;
+  
+      document.body.appendChild(spark);
+  
+      setTimeout(() => {
+        spark.remove();
+      }, 500); // matches animation duration
+    });
+  </script>
 </body>
 </html>

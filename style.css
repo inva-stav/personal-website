@@ -26,22 +26,29 @@ body {
   
   /* main text */
   .content p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.7;
     margin-bottom: 3rem;
+  }
+  .content a {
+    color:#1a1a1a
+  }
+
+  .content a:hover{
+    color: #ffffff;
+    background: #1a1a1a;
   }
   
   /* Substack link */
   .links a {
     font-family: 'Lato', Verdana, Helvetica, sans-serif;
-    font-size: 1rem;
-    color: #1a1a1a;
-    text-decoration: none;
+    font-size: 0.75rem;
+    color: #383838;
     padding-bottom: 3px;
   }
   
   .links a:hover {
-    color: #0ae207;
+    color: #ffffff;
     background: #1a1a1a;
   }
   .h1 {
@@ -50,7 +57,7 @@ body {
 
 #name-header {
   transition: color ease 0.3s;
-  font-size: 1rem;
+  font-size: 2rem;
   cursor: crosshair;
 }
 
@@ -64,3 +71,22 @@ a[target="_blank"]::after {
 .name-color-1 { color: #15ff11; }  /* first hover */
 .name-color-2 { color: #ff1afb; }  /* second hover */
 .name-color-3 { color: #fffc30; }  /* third+ hover */
+.name-color-4 { color: #00e1ff; }  /* third+ hover */
+.name-color-5 { color: #ff0000; }  /* third+ hover */
+
+.cursor-spark {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #ffd166; /* spark color */
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  animation: spark-fade 500ms ease-out forwards;
+}
+
+@keyframes spark-fade {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.2); }
+}
