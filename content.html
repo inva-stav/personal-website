@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>content</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER / NAME -->
+    <header class="header">
+        <h1 id="name-header">avni vats</h1>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="content">
+        <section class="week">
+            <h2 class = "week">sunday, nov 16, 2025</h2>
+            <ul>
+              <li><a href="https://..." target="_blank">New article title</a></li>
+              <li><a href="https://..." target="_blank">New video title</a></li>
+            </ul>
+          </section>
+    </main>
+    <!-- LINKs -->
+    <div class="links">
+      <a href="index.html" target="_blank">
+        home
+      </a>
+    </div>
+
+  </div>
+  <script>
+    const header = document.getElementById("name-header");
+  
+    // Number of colors you defined
+    const colorCount = 5;
+    let colorIndex = 0;
+  
+    header.addEventListener("mouseenter", () => {
+      for (let i = 0; i < colorCount; i++) {
+        header.classList.remove(`name-color-${i}`);
+      }
+  
+      header.classList.add(`name-color-${colorIndex}`);
+  
+      colorIndex = (colorIndex + 1) % colorCount;
+    });
+  </script>
+  
+  <script>
+    document.addEventListener("mousemove", (e) => {
+      const spark = document.createElement("div");
+      spark.classList.add("cursor-spark");
+  
+      spark.style.left = `${e.pageX}px`;
+      spark.style.top = `${e.pageY}px`;
+  
+      document.body.appendChild(spark);
+  
+      setTimeout(() => {
+        spark.remove();
+      }, 500); // matches animation duration
+    });
+  </script>
+</body>
+</html>

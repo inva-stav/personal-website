@@ -7,6 +7,17 @@ body {
     color: #1a1a1a;
   }
   
+  .about-container {
+    display: flex;
+    align-items: center;   /* vertically align the text with the image */
+    gap: 20px;             /* space between image and text */
+  }
+  
+  .profile-pic {
+    width: 100px;
+    height: auto;
+    border-radius: 0px;
+  }
   .page {
     max-width: 700px;
     margin: 0 auto;
@@ -23,10 +34,16 @@ body {
     display: inline;
     padding: 0 16px;
   }
+  .week{
+    font-family: 'Lato', Verdana, Helvetica, sans-serif;
+    font-size: 0.6rem;
+    display: inline;
+    padding: 0 16px;
+  }
   
   /* main text */
   .content p {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     line-height: 1.7;
     margin-bottom: 3rem;
   }
@@ -42,7 +59,7 @@ body {
   /* Substack link */
   .links a {
     font-family: 'Lato', Verdana, Helvetica, sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     color: #383838;
     padding-bottom: 3px;
   }
@@ -53,6 +70,10 @@ body {
   }
   .h1 {
     font-size: 1rem;
+  }
+
+  .h2 week{
+    font-size: 0.3rem;
   }
 
 #name-header {
