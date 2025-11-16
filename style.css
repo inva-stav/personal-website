@@ -62,8 +62,9 @@ body {
 }
 
 a[target="_blank"]::after {
-  content: " ↗";
-  font-size: 1rem;
+  content: "↗";   
+  font-family: inherit;
+  font-size: 0.85em;
 }
 
 
