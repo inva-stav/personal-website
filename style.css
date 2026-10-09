@@ -118,7 +118,7 @@ a[target="_blank"]::after {
 
 
 /* photo: top-left, flush with menu on the left and name on top */
-.profile-pic { grid-column: 1; grid-row: 1; align-self: start; width: 70px; }
+.profile-pic { grid-column: 1; grid-row: 1; align-self: start; width: 56px; }
 .page { row-gap: 4rem; padding-top: 3rem; }
 #name-header { margin-top: 0; }
 
