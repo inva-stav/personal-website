@@ -12,10 +12,12 @@
 
 <body>
   <div class="page">
+    <img src="me.png" alt="Avni" class="profile-pic">
 
     <!-- HEADER / NAME -->
     <header class="header">
         <h1 id="name-header">avni vats</h1>
+        <canvas id="scope"></canvas>
     </header>
 
     <!-- MAIN CONTENT AREA -->
@@ -28,7 +30,6 @@
           non-exhaustive <a href="list.html/" target="_blank"> list</a> of what i care about + what i'm doing about it.<br>
          i consume a lot of content.  <a href="content.html" target="_blank">here's</a> what i've been thinking about recently.
         </p>
-        <img src="me.png" alt="Avni" class="profile-pic">
       </div>
     </main>
     <!-- LINKs -->
@@ -45,38 +46,57 @@
     </div>
 
   </div>
-  <script>
-    const header = document.getElementById("name-header");
-  
-    // Number of colors you defined
-    const colorCount = 5;
-    let colorIndex = 0;
-  
-    header.addEventListener("mouseenter", () => {
-      for (let i = 0; i < colorCount; i++) {
-        header.classList.remove(`name-color-${i}`);
-      }
-  
-      header.classList.add(`name-color-${colorIndex}`);
-  
-      colorIndex = (colorIndex + 1) % colorCount;
-    });
-  </script>
   
   <script>
+    // wave strip under the name
+    const scope = document.getElementById("scope");
+    const sctx = scope.getContext("2d");
+    let SW = 0, SH = 30;
+    const sdpr = window.devicePixelRatio || 1;
+    function sizeScope() {
+      const para = document.querySelector(".content p");
+      const range = document.createRange();
+      range.selectNodeContents(para);
+      const textRight = Math.max(...Array.from(range.getClientRects()).map(r => r.right));
+      SW = Math.round(textRight - scope.parentElement.getBoundingClientRect().left);
+      scope.width = SW * sdpr; scope.height = SH * sdpr;
+      scope.style.width = SW + "px"; scope.style.height = SH + "px";
+      sctx.setTransform(sdpr, 0, 0, sdpr, 0, 0);
+    }
+    sizeScope();
+    window.addEventListener("resize", sizeScope);
+    if (document.fonts) document.fonts.ready.then(sizeScope);
+
+    // superposition: two grey waves travel in opposite directions; their sum is the dark line
+    let f1 = 3, f2 = 4.5, targetF2 = 4.5, phase = 0;
     document.addEventListener("mousemove", (e) => {
-      const spark = document.createElement("div");
-      spark.classList.add("cursor-spark");
-  
-      spark.style.left = `${e.pageX}px`;
-      spark.style.top = `${e.pageY}px`;
-  
-      document.body.appendChild(spark);
-  
-      setTimeout(() => {
-        spark.remove();
-      }, 500); // matches animation duration
+      targetF2 = 2 + 6 * (e.clientX / window.innerWidth);
     });
+
+    function trace(fn, color, width) {
+      sctx.strokeStyle = color;
+      sctx.lineWidth = width;
+      sctx.beginPath();
+      for (let x = 0; x <= SW; x++) {
+        const y = SH / 2 + fn(x / SW);
+        x === 0 ? sctx.moveTo(x, y) : sctx.lineTo(x, y);
+      }
+      sctx.stroke();
+    }
+
+    function drawScope() {
+      f2 += (targetF2 - f2) * 0.05;
+      phase += 0.025;
+      const w1 = (t) => 5 * Math.sin(t * f1 * Math.PI * 2 - phase);
+      const w2 = (t) => 5 * Math.sin(t * f2 * Math.PI * 2 + phase);
+      sctx.clearRect(0, 0, SW, SH);
+      trace(w1, "#dcdcdc", 1);
+      trace(w2, "#dcdcdc", 1);
+      trace((t) => w1(t) + w2(t), "#8a8a8a", 1.2);
+      requestAnimationFrame(drawScope);
+    }
+    drawScope();
+
   </script>
 </body>
 </html>

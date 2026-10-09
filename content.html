@@ -16,6 +16,7 @@
     <!-- HEADER / NAME -->
     <header class="header">
         <h1 id="name-header">avni vats</h1>
+        <canvas id="scope"></canvas>
     </header>
 
     <!-- MAIN CONTENT AREA -->
@@ -36,38 +37,39 @@
     </div>
 
   </div>
-  <script>
-    const header = document.getElementById("name-header");
-  
-    // Number of colors you defined
-    const colorCount = 5;
-    let colorIndex = 0;
-  
-    header.addEventListener("mouseenter", () => {
-      for (let i = 0; i < colorCount; i++) {
-        header.classList.remove(`name-color-${i}`);
-      }
-  
-      header.classList.add(`name-color-${colorIndex}`);
-  
-      colorIndex = (colorIndex + 1) % colorCount;
-    });
-  </script>
   
   <script>
+    // 7: oscilloscope line under the name; mouse x tunes the frequency
+    const scope = document.getElementById("scope");
+    const sctx = scope.getContext("2d");
+    const SW = 260, SH = 28, sdpr = window.devicePixelRatio || 1;
+    scope.width = SW * sdpr; scope.height = SH * sdpr;
+    scope.style.width = SW + "px"; scope.style.height = SH + "px";
+    sctx.scale(sdpr, sdpr);
+
+    let freq = 2, targetFreq = 2, amp = 3, targetAmp = 3, phase = 0;
     document.addEventListener("mousemove", (e) => {
-      const spark = document.createElement("div");
-      spark.classList.add("cursor-spark");
-  
-      spark.style.left = `${e.pageX}px`;
-      spark.style.top = `${e.pageY}px`;
-  
-      document.body.appendChild(spark);
-  
-      setTimeout(() => {
-        spark.remove();
-      }, 500); // matches animation duration
+      targetFreq = 1.5 + 8 * (e.clientX / window.innerWidth);
+      targetAmp = 3 + 8 * (1 - e.clientY / window.innerHeight);
     });
+
+    function drawScope() {
+      freq += (targetFreq - freq) * 0.05;
+      amp += (targetAmp - amp) * 0.05;
+      phase += 0.04;
+      sctx.clearRect(0, 0, SW, SH);
+      sctx.strokeStyle = "#1a1a1a";
+      sctx.lineWidth = 1.2;
+      sctx.beginPath();
+      for (let x = 0; x <= SW; x++) {
+        const y = SH / 2 + amp * Math.sin((x / SW) * freq * Math.PI * 2 - phase);
+        x === 0 ? sctx.moveTo(x, y) : sctx.lineTo(x, y);
+      }
+      sctx.stroke();
+      requestAnimationFrame(drawScope);
+    }
+    drawScope();
+
   </script>
 </body>
 </html>
