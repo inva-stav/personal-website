@@ -1,6 +1,6 @@
 /* global */
 body {
-    font-family:'Lato', Verdana, Helvetica, sans-serif;
+    font-family: 'Libre Caslon Text', Georgia, serif;
     margin: 0;
     padding: 0;
     background: #ffffff; /* unified background */
@@ -29,13 +29,13 @@ body {
   
   /* name/header */
   .name {
-    font-family: 'Lato', Verdana, Helvetica, sans-serif;
+    font-family: 'Libre Caslon Text', Georgia, serif;
     font-size: 1rem;
     display: inline;
     padding: 0 16px;
   }
   .week{
-    font-family: 'Lato', Verdana, Helvetica, sans-serif;
+    font-family: 'Libre Caslon Text', Georgia, serif;
     font-size: 0.6rem;
     display: inline;
     padding: 0 16px;
@@ -58,7 +58,7 @@ body {
   
   /* Substack link */
   .links a {
-    font-family: 'Lato', Verdana, Helvetica, sans-serif;
+    font-family: 'Libre Caslon Text', Georgia, serif;
     font-size: 0.6rem;
     color: #383838;
     padding-bottom: 3px;
@@ -112,3 +112,24 @@ a[target="_blank"]::after {
   0% { opacity: 1; transform: scale(1); }
   100% { opacity: 0; transform: scale(0.2); }
 }
+
+/* menu links: stacked in a left column */
+.page {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  column-gap: 1.5rem;
+}
+.header  { grid-column: 2; grid-row: 1; }
+.content { grid-column: 2; grid-row: 2; }
+.links   { grid-column: 1; grid-row: 2; display: flex; flex-direction: column; gap: 0.1rem; align-self: start; line-height: 1.7; }
+.links a { align-self: flex-start; }
+
+@media (max-width: 560px) {
+  .page { grid-template-columns: 1fr; }
+  .header, .content, .links { grid-column: 1; }
+  .links { grid-row: auto; }
+}
+
+/* top of menu, paragraph and photo all line up */
+.about-container { align-items: flex-start; }
+.about-container p { margin-top: 0; }
